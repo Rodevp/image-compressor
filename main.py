@@ -21,7 +21,7 @@ class Compressor :
             name, extension = os.path.splitext(self.path + filename)
 
             file = {
-                "name": name,
+                "name": name.split("/")[-1],
                 "ext": extension
             }
 
@@ -34,10 +34,15 @@ class Compressor :
         files = self.list_files()
 
         for file in files :
-            print(f"{file}")
+
+            if file["ext"] in [".jpg", ".png", ".jpeg"] :
+                picture = Image.open(self.path + file["name"] + file["ext"])
+                picture.save(self.path + "compressed_" + file["name"] + file["ext"], optimize=True, quality=60)
+                print(f"compressed file -> {file['name'] + file['ext']}")
+            
 
 
 if __name__ == "__main__" :
 
-    compressor = Compressor("C:/Users/rodrigo/Downloads")
+    compressor = Compressor("C:/Users/rodrigo/Downloads/")
     compressor.start()
