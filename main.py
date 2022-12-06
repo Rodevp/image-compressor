@@ -9,18 +9,32 @@ class Compressor :
 
     
     def start(self) :
-        self.list_files()
+        self.optimize()
 
 
     def list_files(self) :
 
-        print(f"**list files in your download folder*")
-        print()
+        list_all_files = list()
+
         for filename in os.listdir(self.path) :
-            print(filename)
 
+            name, extension = os.path.splitext(self.path + filename)
 
+            file = {
+                "name": name,
+                "ext": extension
+            }
 
+            list_all_files.append(file)
+
+        return list_all_files
+        
+
+    def optimize(self) :
+        files = self.list_files()
+
+        for file in files :
+            print(f"{file}")
 
 
 if __name__ == "__main__" :
